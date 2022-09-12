@@ -1,22 +1,23 @@
 #!/usr/bin/python3
-# 4-list_division.py
-
-
 def list_division(my_list_1, my_list_2, list_length):
-    """Divides 2 lst ele by ele"""
-    lst = []
-    for x in range(0, list_length):
+
+    new_list = []
+    index = 0
+    if list_length <= 0:
+        print("out of range")
+        return new_list
+    while index < list_length:
         try:
-            result = my_list_1[x] / my_list_2[x]
-        except TypeError:
-            print("Invalid type")
-            result = 0
+            new_list.append(my_list_1[index] / my_list_2[index])
         except ZeroDivisionError:
             print("division by 0")
-            result = 0
+            new_list.append(0)
+        except TypeError:
+            print("wrong type")
+            new_list.append(0)
         except IndexError:
             print("out of range")
-            result = 0
+            new_list.append(0)
         finally:
-            lst.append(result)
-    return (lst)
+            index += 1
+    return new_list
