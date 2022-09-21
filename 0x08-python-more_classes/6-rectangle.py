@@ -5,12 +5,15 @@ Contains a definition for class rectangle.
 
 
 class Rectangle:
-
     """Definition of class rectangle.
        Attributes:
            width(int): rectangle width.
            height(int): rectangle height.
+       Args:
+           number_of_instances: counter for objects in existence.
     """
+    number_of_instances = 0
+
     def __init__(self, width=0, height=0):
         """
             Initializes a new Class Rectangle instance.
@@ -32,6 +35,7 @@ class Rectangle:
         elif height < 0:
             raise ValueError("height must be >= 0")
         self.__height = height
+        type(self).number_of_instances += 1
 
     @property
     def width(self):
@@ -113,9 +117,9 @@ class Rectangle:
         """
 
         return '{self.__class__.__name__}({self.width}, {self.height})'.\
-                format(self=self)
+            format(self=self)
 
     def __del__(self):
         """Prints string to STDOUT when rectangle object is deleted"""
-
+        type(self).number_of_instances -= 1
         print("Bye rectangle...")
