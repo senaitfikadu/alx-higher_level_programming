@@ -1,55 +1,76 @@
 #!/usr/bin/python3
-"""
-This module implements a Square object
-"""
+'''
+Write the class Square that
+inherits from Rectangle:
+'''
 from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
-    """Square implementation"""
+    '''
+    Square class inherits from Rectangle
+    '''
 
-    def __init__(self, size: int, x=0, y=0, id=None):
-        """initialization
-        """
+    def __init__(self, size, x=0, y=0, id=None):
+        '''
+        Constructor
+        '''
         super().__init__(size, size, x, y, id)
-        self.__size = size
+        self.size = size
 
     @property
-    def size(self) -> int:
-        """size getter
-        """
-        return self.__size
+    def size(self):
+        '''
+        size getter
+        '''
+        return self.width
 
     @size.setter
-    def size(self, value: int):
-        """size setter
-        """
-        self.__size = value
-        self.width = self.height = value
-
-    def __str__(self) -> str:
-        """string representation"""
-        id = self.id
-        size = self.__size
-        x = self.x
-        y = self.y
-        return "[Square] ({}) {}/{} - {}".format(id, x, y, size)
+    def size(self, value):
+        '''
+        size setter
+        '''
+        self.width = value
+        self.height = value
 
     def update(self, *args, **kwargs):
-        """update arguments"""
-        attr = ['id', 'size', 'x', 'y']
-        if args:
-            for at, numb in zip(attr, args):
-                setattr(self, at, numb)
-        elif kwargs:
-            for key, value in kwargs.items():
-                if key in attr:
-                    setattr(self, key, value)
+        '''
+        Makes args variadic
+        '''
+        argc = len(args)
+        if argc > 0:
+            try:
+                self.id = args[0]
+                self.size = args[1]
+                self.x = args[2]
+                self.y = args[3]
+            except BaseException:
+                pass
+        else:
+            if 'id' in kwargs:
+                self.id = kwargs['id']
+            if 'size' in kwargs:
+                self.size = kwargs['size']
+            if 'x' in kwargs:
+                self.x = kwargs['x']
+            if 'y' in kwargs:
+                self.y = kwargs['y']
 
-    def to_dictionary(self) -> dict:
-        """square to dictionary"""
-        id = self.id
-        size = self.__size
-        x = self.x
-        y = self.y
-        return {'id': id, 'x': x, 'size': size, 'y': y}
+    def to_dictionary(self):
+        '''
+       Pull the parameters out in
+       the function as a dictionary
+        '''
+        return {
+            'id': self.id,
+            'x': self.x,
+            'size': self.size,
+            'y': self.y
+        }
+
+    def __str__(self):
+        '''
+        String representation
+        '''
+        return '[Square] ({}) {}/{} - {}'.format(self.id,
+                                                 self.x, self.y, self.size)
